@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connectdb = () => {
   try {
-    mongo.connect(process.env.MONGO_URI);
+    mongoose.connect(process.env.MONGO_URI);
   } catch (error) {
     console.error(error.message);
     process.exit(1);
