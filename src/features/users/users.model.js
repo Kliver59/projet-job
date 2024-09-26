@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+import bcrypt from "bcryptjs";
 
 const UserSchema = new Schema({
   name: {
@@ -24,5 +25,16 @@ const UserSchema = new Schema({
     minlength: 6,
   },
 });
+
+UserSchema.pre("save", async function () {
+  const salt = await bcrypt.genSalt();
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+UserSchema.methods.toJSON = function () {
+  let obj = this.toObject();
+  delete userObject.password;
+  return userObject;
+};
 
 export default model("User", UserSchema);
