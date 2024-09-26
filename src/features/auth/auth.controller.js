@@ -19,7 +19,9 @@ const login = async (req, res) => {
   if (!isPasswordCorrect)
     throw new UnauthenticatedError("Identifiants invalides");
 
-  res.send("login");
+  const token = user.createAccessToken();
+
+  res.status(StatusCodes.OK).json({ user: { userId: user._id }, token });
 };
 
 export { login, register };
