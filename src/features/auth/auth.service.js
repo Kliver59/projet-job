@@ -4,4 +4,7 @@ const create = (data) => {
   return User(data).save();
 };
 
-export { create };
+const get = (Options) => {
+  return User.findOne(Options);
+};
+export { create, get };
